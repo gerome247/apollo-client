@@ -1,0 +1,11 @@
+{
+  "name": "Name of your Project",
+  //   "schemaPath": "./schema.json",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "https://countries.trevorblades.com"
+      }
+    }
+  }
+}

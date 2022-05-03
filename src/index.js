@@ -9,16 +9,25 @@ const client = new ApolloClient({
     uri: "https://countries.trevorblades.com",
     cache: new InMemoryCache({
         typePolicies: {
+            Query: {
+                fields: {
+                    nameWithEmoji: {
+                        read: (existing, { toReference, args }) => {
+                            const countryRef = toReference({__typename: "Country", code: args.code})
+                            return existing ?? countryRef;
+                        }
+                    }
+                }
+            },
             Country: {
+                keyFields: ['code'],
                 fields: {
                     nameWithEmoji: {
                         read: (existing, { readField }) => {
                             console.log('existing', existing);
                             const name = readField('name');
                             const emoji = readField('emoji');
-
                             return `${name} ${emoji}`;
-
                         }
 
                     }
